@@ -3,37 +3,137 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to My Web App</title>
+  <title>Omkar Pardeshi | Cloud & DevOps Engineer</title>
   <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --text-main: #c9d1d9;
+      --accent: #58a6ff;
+      --border: #30363d;
+    }
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0078d7, #00b4d8);
-      color: white;
-      text-align: center;
-      padding: 100px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
       margin: 0;
+      padding: 0;
+      line-height: 1.6;
     }
-    h1 {
-      font-size: 3em;
-      margin-bottom: 0.3em;
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
     }
-    p {
+    header {
+      text-align: center;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+    header h1 {
+      font-size: 2.5em;
+      margin: 0;
+      color: #ffffff;
+    }
+    header p {
       font-size: 1.2em;
-      color: #e0f7fa;
+      color: var(--accent);
+      margin-top: 10px;
     }
-    footer {
-      position: fixed;
-      bottom: 20px;
-      width: 100%;
+    section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+    h2 {
+      color: #ffffff;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 10px;
+      margin-top: 0;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .badge {
+      background-color: rgba(88, 166, 255, 0.1);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 5px 12px;
+      border-radius: 15px;
       font-size: 0.9em;
-      color: #b2ebf2;
+      font-weight: bold;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    .footer-links {
+      text-align: center;
+      margin-top: 40px;
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <h1>🚀 CI/CD Deployment Successful!</h1>
-  <p>This page was deployed automatically via Jenkins → Nginx pipeline.</p>
+  <div class="container">
+    <header>
+      <h1>Omkar Pardeshi</h1>
+      <p>Cloud & Infrastructure Specialist | DevOps Engineer</p>
+    </header>
 
-  <footer>© 2025 My Web App | Built with ❤️ using Jenkins</footer>
+    <section>
+      <h2>About Me</h2>
+      <p>I am a Cloud and DevOps Engineer holding a Master's in Computer Application (MCA), ready to immediately join a forward-thinking infrastructure team. I specialize in designing, provisioning, and automating secure multi-cloud environments across AWS and Azure. My passion lies in Infrastructure as Code (IaC), configuration management, and implementing zero-trust security architectures.</p>
+      
+      <div class="badges">
+        <span class="badge">Azure AZ-900</span>
+        <span class="badge">Azure SC-900</span>
+        <span class="badge">AWS</span>
+        <span class="badge">Terraform</span>
+        <span class="badge">Ansible</span>
+        <span class="badge">Jenkins</span>
+        <span class="badge">Docker</span>
+        <span class="badge">Kubernetes</span>
+        <span class="badge">Linux</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Featured Architecture: Zero-Trust CI/CD Pipeline</h2>
+      <p><strong>Proof of Concept:</strong> This very website is actively hosted on the architecture described below.</p>
+      
+      
+
+      <ul>
+        <li><strong>Infrastructure as Code (IaC):</strong> AWS VPC, public subnets, internet gateways, and EC2 instances provisioned entirely via Terraform.</li>
+        <li><strong>Configuration Management:</strong> Automated server bootstrapping for Jenkins, Docker, and Nginx using Ansible for strict idempotency.</li>
+        <li><strong>Continuous Integration:</strong> Jenkins declarative pipeline triggered via Git, featuring a Shift-Left Python Quality Assurance (QA) gate.</li>
+        <li><strong>Continuous Deployment:</strong> Application containerized via Docker and securely deployed using the Jenkins SSH Credentials Vault.</li>
+        <li><strong>Zero-Trust Security:</strong> Hardened AWS Security Groups enforcing strictly referenced server-to-server SSH restrictions.</li>
+      </ul>
+    </section>
+
+    <div class="footer-links">
+      <p>
+        <a href="https://github.com/OmkarPardeshi3113" target="_blank">View my GitHub</a> | 
+        <a href="#" target="_blank">Connect on LinkedIn</a>
+      </p>
+    </div>
+  </div>
 </body>
 </html>
