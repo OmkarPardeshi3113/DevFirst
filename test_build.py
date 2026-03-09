@@ -7,7 +7,8 @@ def test_html_exists_and_valid():
     # Check if the content is correct
     with open('index.html', 'r') as file:
         content = file.read()
-        assert "DevOps Pipeline" in content, "QA failed: Incorrect content in HTML."
+        # Updated to match your new HTML text exactly!
+        assert "CI/CD Deployment Successful!" in content, "QA failed: Incorrect content in HTML."
         
     print("QA Passed: HTML file is valid and ready for deployment.")
 
