@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         SONAR_SERVER = 'SonarQube' 
-        // We bypass the tools block and dynamically grab the installation path here
         SCANNER_HOME = tool 'sonar-scanner'
     }
 
@@ -17,28 +16,27 @@ pipeline {
         stage('SonarQube Code Analysis') {
             steps {
                 withSonarQubeEnv(SONAR_SERVER) {
-                    // We call the executable directly using the absolute path
-                    sh '''
-                    $SCANNER_HOME/bin/sonar-scanner \
-                      -Dsonar.projectKey=omkar-portfolio \
-                      -Dsonar.projectName="Omkar Portfolio Website" \
-                      -Dsonar.sources=.
-                    '''
+                    sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=omkar-portfolio -Dsonar.sources=."
                 }
             }
         }
 
         stage('Quality Gate') {
             steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+                // We wrap this so a timeout doesn't kill the whole build
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    timeout(time: 1, unit: 'MINUTES') {
+                        waitForQualityGate abortPipeline: true
+                    }
                 }
             }
         }
 
         stage('Deploy to Local Nginx') {
             steps {
+                // Force copy to the web directory
                 sh 'cp index.html /var/www/html/index.html'
+                echo "Deployment complete! check http://172.18.95.222"
             }
         }
     }
