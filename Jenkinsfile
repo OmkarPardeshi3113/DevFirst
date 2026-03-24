@@ -1,31 +1,25 @@
 pipeline {
     agent any 
 
-    tools {
-        // This MUST match the exact name we gave the scanner in Jenkins > Tools
-        sqScanner 'sonar-scanner'
-    }
-
     environment {
-        // This MUST match the exact name we gave the server in Jenkins > System
         SONAR_SERVER = 'SonarQube' 
+        // We bypass the tools block and dynamically grab the installation path here
+        SCANNER_HOME = tool 'sonar-scanner'
     }
 
     stages {
         stage('Checkout Code') {
             steps {
-                // Jenkins automatically pulls the latest code from the Git branch triggering the build
                 checkout scm 
             }
         }
 
         stage('SonarQube Code Analysis') {
             steps {
-                // This wrapper injects the authentication token we saved earlier
                 withSonarQubeEnv(SONAR_SERVER) {
-                    // Execute the scanner and define the project details dynamically
+                    // We call the executable directly using the absolute path
                     sh '''
-                    sonar-scanner \
+                    $SCANNER_HOME/bin/sonar-scanner \
                       -Dsonar.projectKey=omkar-portfolio \
                       -Dsonar.projectName="Omkar Portfolio Website" \
                       -Dsonar.sources=.
@@ -36,7 +30,6 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
-                // The pipeline pauses here and waits for SonarQube to reply "Passed" or "Failed"
                 timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
@@ -45,7 +38,6 @@ pipeline {
 
         stage('Deploy to Local Nginx') {
             steps {
-                // Copy the validated HTML file directly to the local web server directory
                 sh 'cp index.html /var/www/html/index.html'
             }
         }
