@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         // This MUST match the exact name we gave the scanner in Jenkins > Tools
-        sonarScanner 'sonar-scanner' 
+        sqScanner 'sonar-scanner'
     }
 
     environment {
