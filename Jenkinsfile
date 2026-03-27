@@ -23,7 +23,6 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
-                // We wrap this so a timeout doesn't kill the whole build
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     timeout(time: 1, unit: 'MINUTES') {
                         waitForQualityGate abortPipeline: true
@@ -32,11 +31,20 @@ pipeline {
             }
         }
 
-        stage('Deploy to Local Nginx') {
+        stage('Build Docker Image') {
             steps {
-                // Force copy to the web directory
-                sh 'cp index.html /var/www/html/index.html'
-                echo "Deployment complete! check http://172.18.95.222"
+                // Jenkins reads your Dockerfile and builds the immutable image
+                sh 'docker build -t omkar-portfolio:latest .'
+            }
+        }
+
+        stage('Deploy via Terraform') {
+            steps {
+                // Initialize Terraform to download the Docker provider
+                sh 'terraform init'
+                // Apply the main.tf configuration automatically
+                sh 'terraform apply -auto-approve'
+                echo "Container deployed! Check http://172.18.95.222:8081"
             }
         }
     }
