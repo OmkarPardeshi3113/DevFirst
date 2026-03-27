@@ -41,7 +41,7 @@ pipeline {
         stage('Deploy via Terraform') {
             steps {
                 // Initialize Terraform to download the Docker provider
-                sh 'terraform init'
+                sh 'terraform init -upgrade'
                 // Apply the main.tf configuration automatically
                 sh 'terraform apply -auto-approve'
                 echo "Container deployed! Check http://172.18.95.222:8081"
